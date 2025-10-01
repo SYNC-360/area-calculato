@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Calculator, ArrowRight, TrendingUp, Zap, BookOpen } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { ArrowRight, TrendingUp, Zap, BookOpen } from 'lucide-react';
 
 export default function AreaCalculator() {
   const [inputValue, setInputValue] = useState('');
-  const [inputType, setInputType] = useState('radius');
+  const [inputType, setInputType] = useState<'radius' | 'diameter' | 'circumference'>('radius');
   const [result, setResult] = useState<number | null>(null);
   const [steps, setSteps] = useState<string[]>([]);
 
-  const calculateArea = () => {
+  const calculateArea = useCallback(() => {
     const value = parseFloat(inputValue);
     if (isNaN(value) || value <= 0) {
       setResult(null);
@@ -68,13 +68,13 @@ export default function AreaCalculator() {
 
     setResult(area);
     setSteps(calculationSteps);
-  };
+  }, [inputType, inputValue]);
 
   useEffect(() => {
     if (inputValue) {
       calculateArea();
     }
-  }, [inputValue, inputType]);
+  }, [calculateArea, inputValue]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -103,7 +103,7 @@ export default function AreaCalculator() {
                       Select Input Type
                     </label>
                     <div className="grid grid-cols-3 gap-2">
-                      {['radius', 'diameter', 'circumference'].map((type) => (
+                      {(['radius', 'diameter', 'circumference'] as const).map((type) => (
                         <button
                           key={type}
                           onClick={() => setInputType(type)}
@@ -236,7 +236,7 @@ export default function AreaCalculator() {
             <p className="text-gray-800 font-medium leading-relaxed mb-4">
               The <strong className="text-gray-900">area of a circle</strong> represents the total space enclosed within its circumference. 
               Unlike the <a href="https://circumferenceofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">circumference</a> 
-              which measures the perimeter, area quantifies the entire two-dimensional surface contained within the circle's boundary.
+              which measures the perimeter, area quantifies the entire two-dimensional surface contained within the circle’s boundary.
             </p>
             <p className="text-gray-800 font-medium leading-relaxed mb-4">
               The formula A = πr² shows how area scales quadratically with radius. This means doubling the radius 
@@ -255,7 +255,7 @@ export default function AreaCalculator() {
 
           <h3 className="text-2xl font-bold text-gray-900 mb-4">The History of π and Circle Area</h3>
           <p className="text-gray-800 font-medium leading-relaxed mb-4">
-            Ancient civilizations recognized the constant relationship between a circle's area and its radius squared. 
+            Ancient civilizations recognized the constant relationship between a circle’s area and its radius squared. 
             The Babylonians approximated π as 3.125 around 1900 BCE, while ancient Egyptians used 3.16. The Greek 
             mathematician Archimedes (287-212 BCE) proved that the area of a circle equals half its circumference 
             times its radius, establishing the foundation for our modern formula A = πr².
