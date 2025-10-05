@@ -381,51 +381,56 @@ export default function AreaCalculator() {
       </div>
 
       {/* Clean Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12 mt-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="font-bold text-white mb-4">Core Tools</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="https://circumferenceofacircle.com" className="hover:text-white">Circumference</a></li>
-                <li><a href="https://areaofcircle.com" className="hover:text-white font-semibold">Area (Current)</a></li>
-                <li><a href="https://radiusofacircle.com" className="hover:text-white">Radius</a></li>
-                <li><a href="https://diameterofacircle.com" className="hover:text-white">Diameter</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-white mb-4">Formulas</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="https://circleareaformula.com" className="hover:text-white">Area Formula</a></li>
-                <li><a href="https://circumferenceofacircleformula.com" className="hover:text-white">Circumference Formula</a></li>
-                <li><a href="https://formulaforareaofacircle.com" className="hover:text-white">πr² Guide</a></li>
-                <li><a href="https://equationofacircle.com" className="hover:text-white">Circle Equation</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-white mb-4">Tutorials</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="https://howtofindareaofacircle.com" className="hover:text-white">Find Area</a></li>
-                <li><a href="https://howtofindcircumference.com" className="hover:text-white">Find Circumference</a></li>
-                <li><a href="https://howtofindtheareaofacircle.com" className="hover:text-white">Area Tutorial</a></li>
-                <li><a href="https://howtofindcircumferenceofacircle.com" className="hover:text-white">Circumference Guide</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-white mb-4">Specialized</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="https://unitcircleradians.com" className="hover:text-white">Unit Circle</a></li>
-                <li><a href="https://minecraftcirclechart.com" className="hover:text-white">Minecraft Circles</a></li>
-                <li><a href="https://circlepng.com" className="hover:text-white">Circle Images</a></li>
-                <li><a href="https://radiancircle.com" className="hover:text-white">Radian Tools</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="text-center text-sm text-gray-500 pt-8 border-t border-gray-800">
-            © 2025 Circle Calculator Network. Professional mathematical tools.
-          </div>
-        </div>
-      </footer>
+      <footer className="mt-20 border-t border-gray-200 bg-gray-50">
+  <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="grid md:grid-cols-3 gap-8">
+      
+      {/* Main Calculator Link - HERO */}
+      <div>
+        <h3 className="font-semibold text-gray-900 mb-3">Essential Calculators</h3>
+        <ul className="space-y-2 text-sm">
+          <li>
+            <a href="https://circumferenceofacircle.com" 
+               className="text-blue-600 hover:text-blue-800 font-medium"
+               title="Circle circumference calculator">
+              ⭐ Circumference Calculator
+            </a>
+            <span className="text-gray-500 block text-xs mt-1">Most popular - 2πr formula</span>
+          </li>
+          <li>
+            <a href="https://radiusofacircle.com" 
+               className="text-blue-600 hover:text-blue-800"
+               title="Find radius from area">
+              Radius Finder
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      {/* About This Tool */}
+      <div>
+        <h3 className="font-semibold text-gray-900 mb-3">Area Calculator</h3>
+        <p className="text-sm text-gray-600">
+          Calculate circle area using πr² formula. Supports radius, diameter, or circumference input methods.
+        </p>
+      </div>
+      
+      {/* Trust Signals */}
+      <div>
+        <h3 className="font-semibold text-gray-900 mb-3">Features</h3>
+        <ul className="text-sm text-gray-600 space-y-1">
+          <li>✓ Instant calculations</li>
+          <li>✓ 15+ decimal precision</li>
+          <li>✓ No registration needed</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div className="mt-8 pt-6 border-t border-gray-200 text-center text-sm text-gray-500">
+      © 2025 AreaOfCircle.com | Free Educational Tool | Math Reference
+    </div>
+  </div>
+</footer>
     </div>
   );
 }
