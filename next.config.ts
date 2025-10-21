@@ -33,22 +33,6 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // HTML pages - shorter cache for frequent updates
-      {
-        source: "/:path*",
-        has: [
-          {
-            type: "filetype",
-            value: "html",
-          },
-        ],
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=3600, s-maxage=86400",
-          },
-        ],
-      },
       // API endpoints - enable caching for AI platforms
       {
         source: "/api/:path*",
