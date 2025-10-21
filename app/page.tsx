@@ -77,9 +77,9 @@ export default function AreaCalculator() {
   }, [calculateArea, inputValue]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <>
       {/* Clean Hero Section */}
-      <div className="bg-gradient-to-b from-indigo-50 to-white border-b border-gray-200">
+      <header className="bg-gradient-to-b from-indigo-50 to-white border-b border-gray-200" role="banner">
         <div className="max-w-7xl mx-auto px-4 py-16">
           {/* Simple Header */}
           <div className="text-center mb-12">
@@ -87,26 +87,28 @@ export default function AreaCalculator() {
               Area of a Circle Calculator
             </h1>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto font-medium">
-              Calculate the area of any circle using radius, diameter, or circumference. 
+              Calculate the area of any circle using radius, diameter, or circumference.
               Free, accurate, and instant results with step-by-step solutions.
             </p>
           </div>
 
           {/* Clean Calculator Layout */}
-          <div className="max-w-4xl mx-auto">
+          <section className="max-w-4xl mx-auto" aria-label="Circle Area Calculator">
             <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
               <div className="grid md:grid-cols-2">
                 {/* Left Side - Calculator */}
-                <div className="p-8 border-r border-gray-200">
-                  <div className="mb-6">
-                    <label className="block text-sm font-bold text-gray-900 mb-3">
+                <article className="p-8 border-r border-gray-200" role="main" aria-label="Calculator Input">
+                  <fieldset className="mb-6">
+                    <legend className="block text-sm font-bold text-gray-900 mb-3">
                       Select Input Type
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
+                    </legend>
+                    <div className="grid grid-cols-3 gap-2" role="group" aria-label="Input type selection">
                       {(['radius', 'diameter', 'circumference'] as const).map((type) => (
                         <button
                           key={type}
                           onClick={() => setInputType(type)}
+                          aria-pressed={inputType === type}
+                          aria-label={`Select ${type} input method`}
                           className={`py-2 px-3 rounded-lg font-semibold text-sm transition-all ${
                             inputType === type
                               ? 'bg-indigo-600 text-white'
@@ -117,116 +119,121 @@ export default function AreaCalculator() {
                         </button>
                       ))}
                     </div>
-                  </div>
+                  </fieldset>
 
-                  <div className="mb-6">
-                    <label className="block text-sm font-bold text-gray-900 mb-2">
+                  <fieldset className="mb-6">
+                    <label htmlFor="circle-input" className="block text-sm font-bold text-gray-900 mb-2">
                       Enter {inputType} value
                     </label>
                     <input
+                      id="circle-input"
                       type="number"
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       placeholder="Enter value"
+                      aria-label={`Enter ${inputType} value`}
+                      aria-describedby="input-help"
                       className="w-full px-4 py-3 text-lg font-semibold text-gray-900 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none"
                       min="0"
                       step="any"
                     />
-                    <p className="text-sm text-gray-700 font-medium mt-2">
+                    <p id="input-help" className="text-sm text-gray-700 font-medium mt-2">
                       Use any positive number with optional decimals
                     </p>
-                  </div>
+                  </fieldset>
 
                   {result !== null && (
-                    <div className="bg-indigo-600 text-white rounded-lg p-4">
+                    <aside className="bg-indigo-600 text-white rounded-lg p-4" aria-label="Calculation result" role="status" aria-live="polite">
                       <p className="text-sm font-medium opacity-90 mb-1">Calculated Area</p>
-                      <p className="text-3xl font-bold">{result.toFixed(4)}</p>
+                      <p className="text-3xl font-bold" aria-label={`Result: ${result.toFixed(4)} square units`}>
+                        {result.toFixed(4)}
+                      </p>
                       <p className="text-sm mt-1 opacity-90">square units</p>
-                    </div>
+                    </aside>
                   )}
-                </div>
+                </article>
 
                 {/* Right Side - Formula Display */}
-                <div className="p-8 bg-gray-50">
-                  <h3 className="font-bold text-gray-900 mb-4">Active Formula</h3>
-                  <div className="bg-white rounded-lg p-4 border border-gray-200 mb-6">
-                    <p className="text-2xl font-mono font-bold text-indigo-600">
-                      {inputType === 'radius' ? 'A = πr²' : 
-                       inputType === 'diameter' ? 'A = πd²/4' : 
+                <aside className="p-8 bg-gray-50" aria-label="Formula reference">
+                  <h2 className="font-bold text-gray-900 mb-4">Active Formula</h2>
+                  <div className="bg-white rounded-lg p-4 border border-gray-200 mb-6" role="doc-formula">
+                    <p className="text-2xl font-mono font-bold text-indigo-600" aria-label="Mathematical formula">
+                      {inputType === 'radius' ? 'A = πr²' :
+                       inputType === 'diameter' ? 'A = πd²/4' :
                        'A = C²/(4π)'}
                     </p>
                   </div>
 
                   {steps.length > 0 && inputValue && (
-                    <div>
-                      <h4 className="font-bold text-gray-900 mb-3">Calculation Steps</h4>
-                      <div className="space-y-2">
+                    <section aria-label="Step-by-step calculation">
+                      <h3 className="font-bold text-gray-900 mb-3">Calculation Steps</h3>
+                      <ol className="space-y-2">
                         {steps.slice(0, 4).map((step, index) => (
-                          <div key={index} className="text-sm text-gray-800 font-medium">
+                          <li key={index} className="text-sm text-gray-800 font-medium">
+                            <span className="sr-only">Step {index + 1}:</span>
                             {step}
-                          </div>
+                          </li>
                         ))}
-                      </div>
-                    </div>
+                      </ol>
+                    </section>
                   )}
-                </div>
+                </aside>
               </div>
             </div>
-          </div>
+          </section>
 
           {/* Quick Stats Bar */}
-          <div className="max-w-4xl mx-auto mt-8 grid grid-cols-3 gap-4">
-            <div className="bg-white rounded-lg p-4 border border-gray-200 text-center">
-              <Zap className="w-6 h-6 text-indigo-600 mx-auto mb-2" />
+          <section className="max-w-4xl mx-auto mt-8 grid grid-cols-3 gap-4" aria-label="Calculator features">
+            <article className="bg-white rounded-lg p-4 border border-gray-200 text-center">
+              <Zap className="w-6 h-6 text-indigo-600 mx-auto mb-2" aria-hidden="true" />
               <p className="text-sm font-bold text-gray-900">Instant Results</p>
-            </div>
-            <div className="bg-white rounded-lg p-4 border border-gray-200 text-center">
-              <TrendingUp className="w-6 h-6 text-indigo-600 mx-auto mb-2" />
+            </article>
+            <article className="bg-white rounded-lg p-4 border border-gray-200 text-center">
+              <TrendingUp className="w-6 h-6 text-indigo-600 mx-auto mb-2" aria-hidden="true" />
               <p className="text-sm font-bold text-gray-900">15+ Decimal Precision</p>
-            </div>
-            <div className="bg-white rounded-lg p-4 border border-gray-200 text-center">
-              <BookOpen className="w-6 h-6 text-indigo-600 mx-auto mb-2" />
+            </article>
+            <article className="bg-white rounded-lg p-4 border border-gray-200 text-center">
+              <BookOpen className="w-6 h-6 text-indigo-600 mx-auto mb-2" aria-hidden="true" />
               <p className="text-sm font-bold text-gray-900">Step-by-Step Guide</p>
-            </div>
-          </div>
-        </div>
-      </div>
+            </article>
+          </section>
+        </header>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        
+      <main className="max-w-7xl mx-auto px-4 py-12">
+
         {/* Formula Cards */}
-        <div className="mb-16">
+        <section className="mb-16" aria-label="Calculation methods">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Three Ways to Calculate Circle Area
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-500 transition-colors">
-              <div className="text-3xl font-mono font-bold text-indigo-600 mb-4">A = πr²</div>
+          <div className="grid md:grid-cols-3 gap-6" role="list">
+            <article className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-500 transition-colors" role="listitem">
+              <div className="text-3xl font-mono font-bold text-indigo-600 mb-4" role="doc-formula">A = πr²</div>
               <h3 className="font-bold text-gray-900 mb-2">Using Radius</h3>
               <p className="text-gray-800 font-medium">
                 Square the radius and multiply by π. The most common method for finding area.
               </p>
-            </div>
-            <div className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-500 transition-colors">
-              <div className="text-3xl font-mono font-bold text-indigo-600 mb-4">A = πd²/4</div>
+            </article>
+            <article className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-500 transition-colors" role="listitem">
+              <div className="text-3xl font-mono font-bold text-indigo-600 mb-4" role="doc-formula">A = πd²/4</div>
               <h3 className="font-bold text-gray-900 mb-2">Using Diameter</h3>
               <p className="text-gray-800 font-medium">
                 Square the diameter, multiply by π, then divide by 4.
               </p>
-            </div>
-            <div className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-500 transition-colors">
-              <div className="text-3xl font-mono font-bold text-indigo-600 mb-4">A = C²/4π</div>
+            </article>
+            <article className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-500 transition-colors" role="listitem">
+              <div className="text-3xl font-mono font-bold text-indigo-600 mb-4" role="doc-formula">A = C²/4π</div>
               <h3 className="font-bold text-gray-900 mb-2">Using Circumference</h3>
               <p className="text-gray-800 font-medium">
                 Square the circumference and divide by 4π.
               </p>
-            </div>
+            </article>
           </div>
-        </div>
+        </section>
 
         {/* Educational Content */}
-        <div className="prose prose-lg max-w-none mb-16">
+        <article className="prose prose-lg max-w-none mb-16" itemScope itemType="https://schema.org/Article">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
             Complete Guide to Finding the Area of a Circle
           </h2>
@@ -234,22 +241,24 @@ export default function AreaCalculator() {
           <div className="bg-gray-50 rounded-xl p-8 mb-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Understanding Circle Area</h3>
             <p className="text-gray-800 font-medium leading-relaxed mb-4">
-              The <strong className="text-gray-900">area of a circle</strong> represents the total space enclosed within its circumference. 
-              Unlike the <a href="https://circumferenceofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">circumference</a> 
-              which measures the perimeter, area quantifies the entire two-dimensional surface contained within the circle’s boundary.
+              The <strong className="text-gray-900">area of a circle</strong> represents the total space enclosed within its circumference.
+              Unlike the <a href="https://circumferenceofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">circumference</a>
+              which measures the perimeter, area quantifies the entire two-dimensional surface contained within the circle's boundary.
+              You can also <a href="https://circumferenceofacircleformula.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">learn more about circumference and area formulas</a> together.
             </p>
             <p className="text-gray-800 font-medium leading-relaxed mb-4">
-              The formula A = πr² shows how area scales quadratically with radius. This means doubling the radius 
-              quadruples the area—a principle that explains why large pizzas offer much better value per square inch 
-              than small ones. Understanding this relationship is crucial for applications ranging from architecture 
-              to manufacturing.
+              The formula A = πr² shows how area scales quadratically with radius. This means doubling the radius
+              quadruples the area—a principle that explains why large pizzas offer much better value per square inch
+              than small ones. Understanding this relationship is crucial for applications ranging from architecture
+              to manufacturing. This concept also applies when you need to <a href="https://howtofindcircumferenceofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">find the circumference of a circle</a>.
             </p>
             <p className="text-gray-800 font-medium leading-relaxed">
-              To master circle calculations, you should also understand how to find the 
-              <a href="https://radiusofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> radius</a> from area, 
-              or determine the <a href="https://diameterofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">diameter</a> 
-              when only area is known. For a deeper understanding of the mathematical principles, visit our 
-              <a href="https://circleareaformula.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> area formula guide</a>.
+              To master circle calculations, you should also understand how to find the
+              <a href="https://radiusofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> radius</a> from area,
+              or determine the <a href="https://diameterofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">diameter</a>
+              when only area is known. For a deeper understanding of the mathematical principles, visit our
+              <a href="https://equationofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> circle equation guide</a>
+              to see how area fits into the algebraic form (x-h)² + (y-k)² = r².
             </p>
           </div>
 
@@ -296,22 +305,23 @@ export default function AreaCalculator() {
           </div>
 
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Real-World Applications</h3>
-          
+
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div className="bg-white border border-gray-200 rounded-xl p-6">
               <h4 className="font-bold text-gray-900 mb-3">Engineering & Construction</h4>
               <p className="text-gray-800 font-medium">
-                Engineers calculate cross-sectional areas of pipes, cables, and structural columns using πr². 
-                A water pipe with a 10cm radius has a cross-sectional area of 314.16 cm², determining its 
-                flow capacity. Understanding these calculations is essential for infrastructure design.
+                Engineers calculate cross-sectional areas of pipes, cables, and structural columns using πr².
+                A water pipe with a 10cm radius has a cross-sectional area of 314.16 cm², determining its
+                flow capacity. Circle area is also essential in <a href="https://densityformula.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">density formula calculations</a>
+                for mass-to-area conversions. Understanding these calculations is essential for infrastructure design.
               </p>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-6">
               <h4 className="font-bold text-gray-900 mb-3">Agriculture & Irrigation</h4>
               <p className="text-gray-800 font-medium">
-                Center pivot irrigation systems create circular fields. A 400-meter radius system covers 
-                50.26 hectares (502,654 m²). Farmers use this to calculate seed quantities, fertilizer needs, 
-                and expected yields. Visit our <a href="https://surfaceareaofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">surface area calculator</a> 
+                Center pivot irrigation systems create circular fields. A 400-meter radius system covers
+                50.26 hectares (502,654 m²). Farmers use this to calculate seed quantities, fertilizer needs,
+                and expected yields. Visit our <a href="https://surfaceareaofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">surface area calculator</a>
                 for 3D applications.
               </p>
             </div>
@@ -346,91 +356,185 @@ export default function AreaCalculator() {
 
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Advanced Concepts</h3>
           <p className="text-gray-800 font-medium leading-relaxed mb-6">
-            Understanding circle area leads to more complex calculations. The <a href="https://equationofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">equation of a circle</a> 
-            (x-h)² + (y-k)² = r² connects algebra with geometry. For gaming applications, our 
-            <a href="https://minecraftcirclechart.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> Minecraft circle chart</a> 
-            helps create pixel-perfect circular builds. Advanced students can explore 
-            <a href="https://unitcircleradians.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> unit circle radians</a> 
-            for trigonometric applications.
+            Understanding circle area leads to more complex calculations. The <a href="https://equationofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">equation of a circle</a>
+            (x-h)² + (y-k)² = r² connects algebra with geometry. Circle areas also relate to <a href="https://supplementaryangles.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">supplementary angles</a> when measuring arc segments. For gaming applications, our
+            <a href="https://minecraftcirclechart.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> Minecraft circle chart</a>
+            helps create pixel-perfect circular builds. Advanced students can explore
+            <a href="https://unitcircleradians.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> unit circle radians</a>
+            for trigonometric applications. You can also <a href="https://circlepng.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">download circle diagrams and PNG resources</a>
+            for visual reference.
           </p>
-        </div>
+        </article>
 
         {/* Related Calculators Grid */}
-        <div className="bg-indigo-50 rounded-2xl p-8 mb-12">
+        <section className="bg-indigo-50 rounded-2xl p-8 mb-12" aria-label="Related calculator tools">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
             Circle Calculator Network
           </h2>
-          <div className="grid md:grid-cols-4 gap-4">
+          <nav className="grid md:grid-cols-4 gap-4" role="navigation" aria-label="Related tools">
             {[
-              { name: "Circumference", url: "https://circumferenceofacircle.com", desc: "Calculate perimeter" },
-              { name: "Radius Finder", url: "https://radiusofacircle.com", desc: "Find radius from area" },
+              { name: "Lab101 Hub", url: "https://lab101.com", desc: "Explore more circle tools", badge: "★ Primary Hub" },
+              { name: "Circumference", url: "https://circumferenceofacircle.com", desc: "Find circumference from area" },
+              { name: "Radius Finder", url: "https://radiusofacircle.com", desc: "Calculate radius from area" },
               { name: "Diameter", url: "https://diameterofacircle.com", desc: "Calculate diameter" },
               { name: "Area Formula", url: "https://formulaforareaofacircle.com", desc: "πr² explained" },
               { name: "How-To Guide", url: "https://howtofindareaofacircle.com", desc: "Step-by-step tutorials" },
-              { name: "Circle Equation", url: "https://circleequation.com", desc: "Algebraic form" },
-              { name: "Unit Circle", url: "https://unitcircleradians.com", desc: "Radians & trig" },
-              { name: "Surface Area", url: "https://surfaceareaofacircle.com", desc: "3D applications" }
+              { name: "Circle Equation", url: "https://equationofacircle.com", desc: "Algebraic form" },
+              { name: "Unit Circle", url: "https://unitcircleradians.com", desc: "Radians & trig" }
             ].map((tool, index) => (
-              <a key={index} href={tool.url} className="bg-white p-4 rounded-lg border border-gray-200 hover:border-indigo-500 transition-colors group">
-                <p className="font-bold text-gray-900 group-hover:text-indigo-600 mb-1">{tool.name}</p>
-                <p className="text-sm text-gray-700 font-medium">{tool.desc}</p>
+              <a key={index} href={tool.url} className={`p-4 rounded-lg border transition-colors group ${
+                index === 0
+                  ? 'bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700'
+                  : 'bg-white border-gray-200 hover:border-indigo-500'
+              }`} aria-label={`${tool.name}: ${tool.desc}`}>
+                <p className={`font-bold mb-1 ${index === 0 ? 'text-white' : 'text-gray-900 group-hover:text-indigo-600'}`}>
+                  {tool.name}
+                  {tool.badge && <span className="ml-2 text-xs">{tool.badge}</span>}
+                </p>
+                <p className={`text-sm font-medium ${index === 0 ? 'text-indigo-100' : 'text-gray-700'}`}>{tool.desc}</p>
               </a>
             ))}
-          </div>
-        </div>
-      </div>
+          </nav>
+        </section>
+      </main>
 
-      {/* Clean Footer */}
-      <footer className="mt-20 border-t border-gray-200 bg-gray-50">
+      {/* Clean Footer with Backlink Network */}
+      <footer className="mt-20 border-t border-gray-200 bg-gray-50" role="contentinfo">
   <div className="max-w-6xl mx-auto px-4 py-10">
-    <div className="grid md:grid-cols-3 gap-8">
-      
-      {/* Main Calculator Link - HERO */}
+    <div className="grid md:grid-cols-4 gap-8">
+
+      {/* Hub Navigation */}
       <div>
-        <h3 className="font-semibold text-gray-900 mb-3">Essential Calculators</h3>
+        <h3 className="font-semibold text-gray-900 mb-3">📍 Primary Hub</h3>
         <ul className="space-y-2 text-sm">
           <li>
-            <a href="https://circumferenceofacircle.com" 
+            <a href="https://lab101.com"
+               className="text-indigo-600 hover:text-indigo-800 font-medium"
+               title="Lab101 - Primary calculator hub">
+              Explore Lab101
+            </a>
+            <span className="text-gray-500 block text-xs mt-1">Learn with Lab101</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Core Twin Pages */}
+      <div>
+        <h3 className="font-semibold text-gray-900 mb-3">Related Calculations</h3>
+        <ul className="space-y-2 text-sm">
+          <li>
+            <a href="https://circumferenceofacircle.com"
                className="text-blue-600 hover:text-blue-800 font-medium"
                title="Circle circumference calculator">
               ⭐ Circumference Calculator
             </a>
-            <span className="text-gray-500 block text-xs mt-1">Most popular - 2πr formula</span>
           </li>
           <li>
-            <a href="https://radiusofacircle.com" 
+            <a href="https://radiusofacircle.com"
                className="text-blue-600 hover:text-blue-800"
                title="Find radius from area">
               Radius Finder
             </a>
           </li>
+          <li>
+            <a href="https://diameterofacircle.com"
+               className="text-blue-600 hover:text-blue-800"
+               title="Calculate diameter">
+              Diameter Calculator
+            </a>
+          </li>
         </ul>
       </div>
-      
-      {/* About This Tool */}
+
+      {/* Formula & Equation Pages */}
       <div>
-        <h3 className="font-semibold text-gray-900 mb-3">Area Calculator</h3>
-        <p className="text-sm text-gray-600">
-          Calculate circle area using πr² formula. Supports radius, diameter, or circumference input methods.
-        </p>
+        <h3 className="font-semibold text-gray-900 mb-3">Formulas & Theory</h3>
+        <ul className="space-y-2 text-sm">
+          <li>
+            <a href="https://circumferenceofacircleformula.com"
+               className="text-blue-600 hover:text-blue-800"
+               title="Circumference and area formulas">
+              Circumference &amp; Area Formulas
+            </a>
+          </li>
+          <li>
+            <a href="https://equationofacircle.com"
+               className="text-blue-600 hover:text-blue-800"
+               title="Circle equation guide">
+              Circle Equation
+            </a>
+          </li>
+          <li>
+            <a href="https://howtofindcircumferenceofacircle.com"
+               className="text-blue-600 hover:text-blue-800"
+               title="Step-by-step guide">
+              How to Find Circumference
+            </a>
+          </li>
+        </ul>
       </div>
-      
-      {/* Trust Signals */}
+
+      {/* Advanced & Applications */}
       <div>
-        <h3 className="font-semibold text-gray-900 mb-3">Features</h3>
-        <ul className="text-sm text-gray-600 space-y-1">
-          <li>✓ Instant calculations</li>
-          <li>✓ 15+ decimal precision</li>
-          <li>✓ No registration needed</li>
+        <h3 className="font-semibold text-gray-900 mb-3">Advanced Topics</h3>
+        <ul className="space-y-2 text-sm">
+          <li>
+            <a href="https://densityformula.com"
+               className="text-blue-600 hover:text-blue-800"
+               title="Use area in density calculations">
+              Density Formula
+            </a>
+          </li>
+          <li>
+            <a href="https://circlepng.com"
+               className="text-blue-600 hover:text-blue-800"
+               title="Download circle diagrams">
+              Circle Diagrams &amp; PNG
+            </a>
+          </li>
+          <li>
+            <a href="https://unitcircleradians.com"
+               className="text-blue-600 hover:text-blue-800"
+               title="Unit circle and radians">
+              Unit Circle Radians
+            </a>
+          </li>
         </ul>
       </div>
     </div>
-    
-    <div className="mt-8 pt-6 border-t border-gray-200 text-center text-sm text-gray-500">
-      © 2025 AreaOfCircle.com | Free Educational Tool | Math Reference
+
+    <div className="mt-8 pt-6 border-t border-gray-200">
+      <div className="grid md:grid-cols-3 gap-6 mb-6">
+        <div>
+          <h4 className="text-sm font-semibold text-gray-900 mb-2">About This Tool</h4>
+          <p className="text-xs text-gray-600">
+            Calculate circle area using πr² formula. Supports radius, diameter, or circumference input methods. Free educational tool.
+          </p>
+        </div>
+        <div>
+          <h4 className="text-sm font-semibold text-gray-900 mb-2">Features</h4>
+          <ul className="text-xs text-gray-600 space-y-1">
+            <li>✓ Instant calculations</li>
+            <li>✓ 15+ decimal precision</li>
+            <li>✓ No registration needed</li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-sm font-semibold text-gray-900 mb-2">API Access</h4>
+          <ul className="text-xs text-gray-600 space-y-1">
+            <li>✓ REST API available</li>
+            <li>✓ JSON-LD structured data</li>
+            <li>✓ OpenAPI specification</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="text-center text-xs text-gray-500 pt-4 border-t border-gray-200">
+        © 2025 AreaOfCircle.com | Free Educational Tool | <a href="https://lab101.com" className="text-blue-600 hover:text-blue-800">Part of Lab101 Network</a>
+      </div>
     </div>
   </div>
 </footer>
-    </div>
+    </>
   );
 }

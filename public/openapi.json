@@ -1,0 +1,416 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Area of Circle Calculator API",
+    "description": "Free, open API for calculating circle area with multiple input methods (radius, diameter, circumference)",
+    "version": "2.0.0",
+    "contact": {
+      "name": "Circle Calculators",
+      "url": "https://areaofcircle.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://areaofcircle.com",
+      "description": "Production server"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/api/calculate": {
+      "post": {
+        "summary": "Calculate circle area",
+        "description": "Calculate the area of a circle using POST request with JSON payload",
+        "operationId": "calculateCircleArea",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculateRequest"
+              },
+              "examples": {
+                "radiusExample": {
+                  "value": {
+                    "value": 10,
+                    "inputType": "radius"
+                  }
+                },
+                "diameterExample": {
+                  "value": {
+                    "value": 20,
+                    "inputType": "diameter"
+                  }
+                },
+                "circumferenceExample": {
+                  "value": {
+                    "value": 62.832,
+                    "inputType": "circumference"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Calculator"]
+      },
+      "get": {
+        "summary": "Calculate circle area via query parameters",
+        "description": "Calculate the area of a circle using GET request with query parameters",
+        "operationId": "calculateCircleAreaQuery",
+        "parameters": [
+          {
+            "name": "value",
+            "in": "query",
+            "required": true,
+            "description": "The numeric value (radius, diameter, or circumference)",
+            "schema": {
+              "type": "number",
+              "example": 10,
+              "minimum": 0.0001
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "The type of input value",
+            "schema": {
+              "type": "string",
+              "enum": ["radius", "diameter", "circumference"],
+              "default": "radius"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Calculator"]
+      }
+    },
+    "/api/metadata": {
+      "get": {
+        "summary": "Get calculator metadata",
+        "description": "Retrieve comprehensive metadata about the calculator, including keywords, formulas, and features",
+        "operationId": "getMetadata",
+        "responses": {
+          "200": {
+            "description": "Metadata retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetadataResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Metadata"]
+      }
+    },
+    "/api/specs": {
+      "get": {
+        "summary": "Get calculator specifications",
+        "description": "Retrieve detailed specifications about the calculator, input types, and API endpoints",
+        "operationId": "getSpecifications",
+        "responses": {
+          "200": {
+            "description": "Specifications retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecsResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Metadata"]
+      }
+    },
+    "/api/schema": {
+      "get": {
+        "summary": "Get JSON-LD schema",
+        "description": "Retrieve structured data (JSON-LD) for SEO and AI platform indexing",
+        "operationId": "getSchema",
+        "responses": {
+          "200": {
+            "description": "Schema retrieved successfully",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "type": "object",
+                  "description": "JSON-LD structured data"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Metadata"]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CalculateRequest": {
+        "type": "object",
+        "required": ["value", "inputType"],
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "The numeric value to calculate from",
+            "example": 10,
+            "minimum": 0.0001
+          },
+          "inputType": {
+            "type": "string",
+            "description": "Type of input (radius, diameter, or circumference)",
+            "enum": ["radius", "diameter", "circumference"],
+            "example": "radius"
+          }
+        }
+      },
+      "CalculateResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "area": {
+                "type": "number",
+                "description": "Calculated area in square units",
+                "example": 314.159265359
+              },
+              "inputType": {
+                "type": "string",
+                "example": "radius"
+              },
+              "inputValue": {
+                "type": "number",
+                "example": 10
+              },
+              "formula": {
+                "type": "string",
+                "example": "A = πr²"
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Step-by-step calculation breakdown",
+                "example": [
+                  "Given: Radius (r) = 10",
+                  "Formula: A = πr²",
+                  "Step 1: Square the radius",
+                  "r² = 10² = 100"
+                ]
+              },
+              "precision": {
+                "type": "integer",
+                "example": 15
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "timestamp": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2025-10-21T10:30:00.000Z"
+              },
+              "cached": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["success", "error"],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "error": {
+            "type": "string",
+            "example": "Invalid value. Please provide a positive number."
+          }
+        }
+      },
+      "MetadataResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "keywords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "formulas": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "formula": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "inputType": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SpecsResponse": {
+        "type": "object",
+        "required": ["success", "data"],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "calculator": {
+                "type": "object"
+              },
+              "inputTypes": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "outputFormat": {
+                "type": "object"
+              },
+              "apiEndpoints": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Optional API key for rate limiting preferences"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Calculator",
+      "description": "Core circle area calculation endpoints"
+    },
+    {
+      "name": "Metadata",
+      "description": "Information about the calculator and its capabilities"
+    }
+  ],
+  "externalDocs": {
+    "description": "Find more information on the main website",
+    "url": "https://areaofcircle.com"
+  }
+}

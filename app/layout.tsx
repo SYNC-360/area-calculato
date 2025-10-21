@@ -78,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
 
-        {/* JSON-LD Schema */}
+        {/* Enhanced JSON-LD Schema for AI Platforms */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -87,13 +87,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@graph": [
                 {
                   "@type": "WebApplication",
+                  "@id": "https://areaofcircle.com/#webapp",
                   name: "Area of Circle Calculator",
                   url: "https://areaofcircle.com",
                   description:
                     "Free online calculator to find the area of a circle using radius, diameter, or circumference",
                   applicationCategory: "EducationalApplication",
                   operatingSystem: "All",
+                  isAccessibleForFree: true,
                   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+                  author: {
+                    "@type": "Organization",
+                    name: "Circle Calculators",
+                    url: "https://areaofcircle.com",
+                  },
+                  creator: {
+                    "@type": "Organization",
+                    name: "Circle Calculators",
+                  },
                   featureList: [
                     "Calculate area from radius using A = πr²",
                     "Calculate area from diameter using A = πd²/4",
@@ -101,10 +112,49 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     "Step-by-step solutions",
                     "Visual representations",
                     "Real-world examples",
+                    "15+ decimal precision",
+                    "No registration required",
+                    "API access for integration",
+                  ],
+                },
+                {
+                  "@type": "Calculator",
+                  "@id": "https://areaofcircle.com/#calculator",
+                  name: "Circle Area Calculator",
+                  url: "https://areaofcircle.com",
+                  description: "Calculate the area of a circle from radius, diameter, or circumference",
+                  potentialAction: {
+                    "@type": "ComputeAction",
+                    target: {
+                      "@type": "EntryPoint",
+                      urlTemplate: "https://areaofcircle.com/api/calculate",
+                      actionPlatform: ["DesktopWebPlatform", "MobileWebPlatform", "VoiceActivatedInterface"],
+                    },
+                  },
+                  hasPart: [
+                    {
+                      "@type": "Thing",
+                      name: "Radius Method",
+                      description: "Calculate area using radius (A = πr²)",
+                      formula: "A = πr²",
+                    },
+                    {
+                      "@type": "Thing",
+                      name: "Diameter Method",
+                      description: "Calculate area using diameter (A = πd²/4)",
+                      formula: "A = πd²/4",
+                    },
+                    {
+                      "@type": "Thing",
+                      name: "Circumference Method",
+                      description: "Calculate area using circumference (A = C²/(4π))",
+                      formula: "A = C²/(4π)",
+                    },
                   ],
                 },
                 {
                   "@type": "FAQPage",
+                  "@id": "https://areaofcircle.com/#faq",
                   mainEntity: [
                     {
                       "@type": "Question",
@@ -130,10 +180,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         text: "The formula A = πr² comes from integral calculus. Imagine dividing a circle into tiny triangular wedges - their combined area equals πr². This can be proven by integrating the circumference from 0 to r.",
                       },
                     },
+                    {
+                      "@type": "Question",
+                      name: "Can I calculate area from circumference?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes! Use the formula A = C²/(4π) where C is the circumference. First find radius from circumference (r = C/2π), then use A = πr².",
+                      },
+                    },
                   ],
                 },
                 {
                   "@type": "MathSolver",
+                  "@id": "https://areaofcircle.com/#mathsolver",
                   name: "Area of Circle Solver",
                   url: "https://areaofcircle.com",
                   potentialAction: {
@@ -144,11 +203,49 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 },
                 {
                   "@type": "WebSite",
+                  "@id": "https://areaofcircle.com/#website",
                   url: "https://areaofcircle.com",
                   name: "Area of Circle",
-                  description:
-                    "Free online area of circle calculator with formulas and examples",
-                  publisher: { "@type": "Organization", name: "Circle Calculators" },
+                  description: "Free online area of circle calculator with formulas and examples",
+                  inLanguage: "en-US",
+                  publisher: {
+                    "@type": "Organization",
+                    name: "Circle Calculators",
+                    url: "https://areaofcircle.com",
+                    logo: {
+                      "@type": "ImageObject",
+                      url: "https://areaofcircle.com/favicon.ico",
+                    },
+                  },
+                  potentialAction: {
+                    "@type": "SearchAction",
+                    target: {
+                      "@type": "EntryPoint",
+                      urlTemplate: "https://areaofcircle.com?q={search_term_string}",
+                    },
+                    "query-input": "required name=search_term_string",
+                  },
+                },
+                {
+                  "@type": "Thing",
+                  "@id": "https://areaofcircle.com/#pi",
+                  name: "π (Pi)",
+                  description: "Mathematical constant representing the ratio of a circle circumference to its diameter",
+                  value: "3.14159265358979",
+                  url: "https://areaofcircle.com",
+                },
+                {
+                  "@type": "Organization",
+                  "@id": "https://areaofcircle.com/#organization",
+                  name: "Circle Calculators",
+                  url: "https://areaofcircle.com",
+                  description: "Educational mathematics tools and calculators",
+                  knowsAbout: ["Circle Mathematics", "Geometry", "Educational Tools", "Mathematical Constants"],
+                  contactPoint: {
+                    "@type": "ContactPoint",
+                    contactType: "Customer Support",
+                    url: "https://areaofcircle.com",
+                  },
                 },
               ],
             }),
@@ -156,9 +253,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
 
         <meta name="author" content="Circle Calculators" />
-        <meta name="robots" content="index,follow" />
+        <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+        <meta name="googlebot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
         <meta property="og:site_name" content="Area of Circle" />
         <meta property="og:type" content="website" />
+
+        {/* AI Platform Accessibility & Indexing */}
+        <meta name="AI-Scrapable" content="true" />
+        <meta name="chat-gpt-indexing" content="allowed" />
+        <meta name="perplexity-indexing" content="allowed" />
+        <meta name="claude-indexing" content="allowed" />
+        <meta name="gemini-indexing" content="allowed" />
+        <meta name="content-type" content="text/html; charset=utf-8" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="classification" content="Educational" />
+        <meta name="coverage" content="Worldwide" />
+        <meta name="distribution" content="Global" />
+        <meta name="rating" content="General" />
+
+        {/* API Documentation Link for AI Crawlers */}
+        <link rel="alternate" type="application/json" href="/api/schema" title="JSON-LD Schema" />
+        <link rel="alternate" type="application/json" href="/api/metadata" title="Metadata" />
+        <link rel="alternate" type="application/json" href="/api/specs" title="Specifications" />
+        <link rel="api" href="/api/calculate" title="Calculate API" />
+
+        {/* OpenAPI Documentation */}
+        <link rel="service" href="/api/openapi.json" type="application/json" title="OpenAPI 3.0 Schema" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       </head>
