@@ -244,7 +244,7 @@ export default function AreaCalculator() {
             <p className="text-gray-800 font-medium leading-relaxed mb-4">
               The <strong className="text-gray-900">area of a circle</strong> represents the total space enclosed within its circumference.
               Unlike the <a href="https://circumferenceofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">circumference</a>
-              which measures the perimeter, area quantifies the entire two-dimensional surface contained within the circle's boundary.
+              which measures the perimeter, area quantifies the entire two-dimensional surface contained within the circle&apos;s boundary.
               You can also <a href="https://circumferenceofacircleformula.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">learn more about circumference and area formulas</a> together.
             </p>
             <p className="text-gray-800 font-medium leading-relaxed mb-4">

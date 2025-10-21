@@ -23,7 +23,7 @@ interface MetadataResponse {
   error?: string;
 }
 
-export async function GET(request: NextRequest): Promise<NextResponse<MetadataResponse>> {
+export async function GET(): Promise<NextResponse<MetadataResponse>> {
   try {
     const metadata: MetadataResponse = {
       success: true,
@@ -87,7 +87,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<MetadataRe
     headers.set('Access-Control-Allow-Origin', '*');
 
     return NextResponse.json(metadata, { headers, status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,
@@ -98,7 +98,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<MetadataRe
   }
 }
 
-export async function OPTIONS(request: NextRequest): Promise<NextResponse> {
+export async function OPTIONS(): Promise<NextResponse> {
   return new NextResponse(null, {
     status: 200,
     headers: {

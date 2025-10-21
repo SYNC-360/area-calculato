@@ -128,7 +128,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<Calculate
     headers.set('Access-Control-Allow-Headers', 'Content-Type');
 
     return NextResponse.json(response, { headers, status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,
@@ -139,10 +139,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<Calculate
   }
 }
 
-export async function GET(request: NextRequest): Promise<NextResponse<CalculateResponse>> {
+export async function GET(req: NextRequest): Promise<NextResponse<CalculateResponse>> {
   // Support GET requests with query parameters for simpler AI crawling
   try {
-    const searchParams = request.nextUrl.searchParams;
+    const searchParams = req.nextUrl.searchParams;
     const value = parseFloat(searchParams.get('value') || '');
     const inputType = (searchParams.get('type') || 'radius') as 'radius' | 'diameter' | 'circumference';
 
@@ -158,12 +158,12 @@ export async function GET(request: NextRequest): Promise<NextResponse<CalculateR
 
     // Reuse POST logic
     return POST(
-      new NextRequest(request, {
+      new NextRequest(req, {
         method: 'POST',
         body: JSON.stringify({ value, inputType }),
       })
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,
@@ -174,7 +174,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<CalculateR
   }
 }
 
-export async function OPTIONS(request: NextRequest): Promise<NextResponse> {
+export async function OPTIONS(): Promise<NextResponse> {
   return new NextResponse(null, {
     status: 200,
     headers: {

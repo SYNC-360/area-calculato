@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
-export async function GET(request: NextRequest): Promise<NextResponse> {
+export async function GET(): Promise<NextResponse> {
   try {
     const openapi = {
       openapi: '3.0.0',
@@ -215,7 +215,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     headers.set('Access-Control-Allow-Origin', '*');
 
     return NextResponse.json(openapi, { headers, status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         error: 'Failed to retrieve OpenAPI specification',
@@ -225,7 +225,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 }
 
-export async function OPTIONS(request: NextRequest): Promise<NextResponse> {
+export async function OPTIONS(): Promise<NextResponse> {
   return new NextResponse(null, {
     status: 200,
     headers: {

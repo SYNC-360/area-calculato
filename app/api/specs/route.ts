@@ -49,7 +49,7 @@ interface SpecsResponse {
   error?: string;
 }
 
-export async function GET(request: NextRequest): Promise<NextResponse<SpecsResponse>> {
+export async function GET(): Promise<NextResponse<SpecsResponse>> {
   try {
     const specs: SpecsResponse = {
       success: true,
@@ -164,7 +164,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<SpecsRespo
     headers.set('Access-Control-Allow-Origin', '*');
 
     return NextResponse.json(specs, { headers, status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,
@@ -175,7 +175,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<SpecsRespo
   }
 }
 
-export async function OPTIONS(request: NextRequest): Promise<NextResponse> {
+export async function OPTIONS(): Promise<NextResponse> {
   return new NextResponse(null, {
     status: 200,
     headers: {
