@@ -112,7 +112,7 @@ export default function AreaCalculator() {
                           className={`py-2 px-3 rounded-lg font-semibold text-sm transition-all ${
                             inputType === type
                               ? 'bg-indigo-600 text-white'
-                              : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                              : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                           }`}
                         >
                           {type.charAt(0).toUpperCase() + type.slice(1)}
@@ -169,7 +169,7 @@ export default function AreaCalculator() {
                       <h3 className="font-bold text-gray-900 mb-3">Calculation Steps</h3>
                       <ol className="space-y-2">
                         {steps.slice(0, 4).map((step, index) => (
-                          <li key={index} className="text-sm text-gray-800 font-medium">
+                          <li key={index} className="text-sm text-gray-900 font-medium">
                             <span className="sr-only">Step {index + 1}:</span>
                             {step}
                           </li>
@@ -212,21 +212,21 @@ export default function AreaCalculator() {
             <article className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-500 transition-colors" role="listitem">
               <div className="text-3xl font-mono font-bold text-indigo-600 mb-4" role="doc-formula">A = πr²</div>
               <h3 className="font-bold text-gray-900 mb-2">Using Radius</h3>
-              <p className="text-gray-800 font-medium">
+              <p className="text-gray-900 font-medium">
                 Square the radius and multiply by π. The most common method for finding area.
               </p>
             </article>
             <article className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-500 transition-colors" role="listitem">
               <div className="text-3xl font-mono font-bold text-indigo-600 mb-4" role="doc-formula">A = πd²/4</div>
               <h3 className="font-bold text-gray-900 mb-2">Using Diameter</h3>
-              <p className="text-gray-800 font-medium">
+              <p className="text-gray-900 font-medium">
                 Square the diameter, multiply by π, then divide by 4.
               </p>
             </article>
             <article className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-indigo-500 transition-colors" role="listitem">
               <div className="text-3xl font-mono font-bold text-indigo-600 mb-4" role="doc-formula">A = C²/4π</div>
               <h3 className="font-bold text-gray-900 mb-2">Using Circumference</h3>
-              <p className="text-gray-800 font-medium">
+              <p className="text-gray-900 font-medium">
                 Square the circumference and divide by 4π.
               </p>
             </article>
@@ -239,21 +239,21 @@ export default function AreaCalculator() {
             Complete Guide to Finding the Area of a Circle
           </h2>
           
-          <div className="bg-gray-50 rounded-xl p-8 mb-8">
+          <div className="bg-white rounded-xl p-8 mb-8 border border-gray-200">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Understanding Circle Area</h3>
-            <p className="text-gray-800 font-medium leading-relaxed mb-4">
+            <p className="text-gray-900 font-medium leading-relaxed mb-4">
               The <strong className="text-gray-900">area of a circle</strong> represents the total space enclosed within its circumference.
               Unlike the <a href="https://circumferenceofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">circumference</a>
               which measures the perimeter, area quantifies the entire two-dimensional surface contained within the circle&apos;s boundary.
               You can also <a href="https://circumferenceofacircleformula.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">learn more about circumference and area formulas</a> together.
             </p>
-            <p className="text-gray-800 font-medium leading-relaxed mb-4">
+            <p className="text-gray-900 font-medium leading-relaxed mb-4">
               The formula A = πr² shows how area scales quadratically with radius. This means doubling the radius
               quadruples the area—a principle that explains why large pizzas offer much better value per square inch
               than small ones. Understanding this relationship is crucial for applications ranging from architecture
               to manufacturing. This concept also applies when you need to <a href="https://howtofindcircumferenceofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">find the circumference of a circle</a>.
             </p>
-            <p className="text-gray-800 font-medium leading-relaxed">
+            <p className="text-gray-900 font-medium leading-relaxed">
               To master circle calculations, you should also understand how to find the
               <a href="https://radiusofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> radius</a> from area,
               or determine the <a href="https://diameterofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">diameter</a>
@@ -264,13 +264,13 @@ export default function AreaCalculator() {
           </div>
 
           <h3 className="text-2xl font-bold text-gray-900 mb-4">The History of π and Circle Area</h3>
-          <p className="text-gray-800 font-medium leading-relaxed mb-4">
+          <p className="text-gray-900 font-medium leading-relaxed mb-4">
             Ancient civilizations recognized the constant relationship between a circle’s area and its radius squared. 
             The Babylonians approximated π as 3.125 around 1900 BCE, while ancient Egyptians used 3.16. The Greek 
             mathematician Archimedes (287-212 BCE) proved that the area of a circle equals half its circumference 
             times its radius, establishing the foundation for our modern formula A = πr².
           </p>
-          <p className="text-gray-800 font-medium leading-relaxed mb-6">
+          <p className="text-gray-900 font-medium leading-relaxed mb-6">
             Chinese mathematician Liu Hui refined these calculations in 263 CE using a polygon approximation method, 
             achieving π accurate to 3.14159. Today, we can calculate π to trillions of digits, though just 39 digits 
             would suffice to calculate the circumference of the observable universe to within the width of a hydrogen atom.
@@ -280,7 +280,7 @@ export default function AreaCalculator() {
           
           <div className="bg-white border-2 border-gray-200 rounded-xl p-6 mb-6">
             <h4 className="font-bold text-gray-900 mb-3 text-lg">Method 1: Using Radius (Most Common)</h4>
-            <ol className="list-decimal list-inside space-y-2 text-gray-800 font-medium">
+            <ol className="list-decimal list-inside space-y-2 text-gray-900 font-medium">
               <li>Identify or measure the radius (distance from center to edge)</li>
               <li>Square the radius by multiplying it by itself (r × r = r²)</li>
               <li>Multiply the result by π (approximately 3.14159)</li>
@@ -288,20 +288,20 @@ export default function AreaCalculator() {
             </ol>
             <div className="mt-4 p-4 bg-indigo-50 rounded-lg">
               <p className="font-mono text-gray-900 font-bold">Example: r = 10 units</p>
-              <p className="font-mono text-gray-800">A = π × 10² = 3.14159 × 100 = 314.159 square units</p>
+              <p className="font-mono text-gray-900">A = π × 10² = 3.14159 × 100 = 314.159 square units</p>
             </div>
           </div>
 
           <div className="bg-white border-2 border-gray-200 rounded-xl p-6 mb-6">
             <h4 className="font-bold text-gray-900 mb-3 text-lg">Method 2: Using Diameter</h4>
-            <p className="text-gray-800 font-medium mb-3">
+            <p className="text-gray-900 font-medium mb-3">
               When you know the diameter, use A = πd²/4. This is useful for physical measurements where finding 
               the exact center is difficult. Learn more at our 
               <a href="https://howtofindareaofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> detailed tutorial page</a>.
             </p>
             <div className="p-4 bg-indigo-50 rounded-lg">
               <p className="font-mono text-gray-900 font-bold">Example: d = 20 units</p>
-              <p className="font-mono text-gray-800">A = π × 20²/4 = 3.14159 × 100 = 314.159 square units</p>
+              <p className="font-mono text-gray-900">A = π × 20²/4 = 3.14159 × 100 = 314.159 square units</p>
             </div>
           </div>
 
@@ -310,7 +310,7 @@ export default function AreaCalculator() {
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div className="bg-white border border-gray-200 rounded-xl p-6">
               <h4 className="font-bold text-gray-900 mb-3">Engineering & Construction</h4>
-              <p className="text-gray-800 font-medium">
+              <p className="text-gray-900 font-medium">
                 Engineers calculate cross-sectional areas of pipes, cables, and structural columns using πr².
                 A water pipe with a 10cm radius has a cross-sectional area of 314.16 cm², determining its
                 flow capacity. Circle area is also essential in <a href="https://densityformula.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">density formula calculations</a>
@@ -319,7 +319,7 @@ export default function AreaCalculator() {
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-6">
               <h4 className="font-bold text-gray-900 mb-3">Agriculture & Irrigation</h4>
-              <p className="text-gray-800 font-medium">
+              <p className="text-gray-900 font-medium">
                 Center pivot irrigation systems create circular fields. A 400-meter radius system covers
                 50.26 hectares (502,654 m²). Farmers use this to calculate seed quantities, fertilizer needs,
                 and expected yields. Visit our <a href="https://surfaceareaofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">surface area calculator</a>
@@ -334,7 +334,7 @@ export default function AreaCalculator() {
               <ArrowRight className="w-5 h-5 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" />
               <div>
                 <strong className="text-gray-900">Confusing area with circumference:</strong>
-                <span className="text-gray-800 font-medium"> Area uses r² (square units) while circumference uses r (linear units). 
+                <span className="text-gray-900 font-medium"> Area uses r² (square units) while circumference uses r (linear units). 
                 Visit our <a href="https://circumferenceofacircleformula.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">circumference formula guide</a> to 
                 understand the difference.</span>
               </div>
@@ -343,20 +343,20 @@ export default function AreaCalculator() {
               <ArrowRight className="w-5 h-5 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" />
               <div>
                 <strong className="text-gray-900">Using diameter in radius formula:</strong>
-                <span className="text-gray-800 font-medium"> If given diameter, either divide by 2 first or use the formula A = πd²/4.</span>
+                <span className="text-gray-900 font-medium"> If given diameter, either divide by 2 first or use the formula A = πd²/4.</span>
               </div>
             </li>
             <li className="flex items-start">
               <ArrowRight className="w-5 h-5 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" />
               <div>
                 <strong className="text-gray-900">Forgetting to square the radius:</strong>
-                <span className="text-gray-800 font-medium"> The formula is πr², not πr. This is the most common calculation error.</span>
+                <span className="text-gray-900 font-medium"> The formula is πr², not πr. This is the most common calculation error.</span>
               </div>
             </li>
           </ul>
 
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Advanced Concepts</h3>
-          <p className="text-gray-800 font-medium leading-relaxed mb-6">
+          <p className="text-gray-900 font-medium leading-relaxed mb-6">
             Understanding circle area leads to more complex calculations. The <a href="https://equationofacircle.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">equation of a circle</a>
             (x-h)² + (y-k)² = r² connects algebra with geometry. Circle areas also relate to <a href="https://supplementaryangles.com" className="text-indigo-600 hover:text-indigo-800 font-semibold">supplementary angles</a> when measuring arc segments. For gaming applications, our
             <a href="https://minecraftcirclechart.com" className="text-indigo-600 hover:text-indigo-800 font-semibold"> Minecraft circle chart</a>
