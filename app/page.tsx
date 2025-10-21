@@ -197,7 +197,8 @@ export default function AreaCalculator() {
               <p className="text-sm font-bold text-gray-900">Step-by-Step Guide</p>
             </article>
           </section>
-        </header>
+        </div>
+      </header>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-12">
