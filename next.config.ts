@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Configure Turbopack for correct workspace root
+  turbopack: {
+    root: ".",
+  },
+
   // Enable compression
   compress: true,
 
